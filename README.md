@@ -1,122 +1,181 @@
-# task-management-system
-Task Manager
-Task Manager is a full-stack application built with Node.js, Express, and MongoDB. It allows users to manage their tasks, with features for user registration, authentication, and task management.
+# Task Manager
 
-Table of Contents
-Features
-Technologies
-Setup
-Usage
-API Endpoints
-Contribution
-License
-Features
-User registration and authentication
-Task creation, update, and deletion
-Password hashing
-JWT-based authentication
-Email notifications for user actions (e.g., welcome, cancellation)
-Technologies
-Node.js: JavaScript runtime for server-side scripting
-Express: Web framework for Node.js
-MongoDB: NoSQL database for storing user and task data
-Mongoose: ODM (Object Data Modeling) library for MongoDB
-SendGrid: Service for sending emails
-JWT (JSON Web Token): For secure authentication
-Bcrypt: Library for hashing passwords
-Validator: Library for input validation
-Setup
-Prerequisites
-Node.js (v14 or later)
-MongoDB instance (local or remote)
-Installation
-Clone the repository:
+Task Manager is a full-stack application built with Node.js, Express, and MongoDB. It allows users to manage their tasks, including creating, updating, and deleting tasks. Users can register, authenticate, and receive email notifications for various actions.
 
-bash
-Copy code
-git clone https://github.com/yourusername/task-manager.git
-Navigate to the project directory:
+## Table of Contents
 
-bash
-Copy code
-cd task-manager
-Install dependencies:
+- [Features](#features)
+- [Technologies](#technologies)
+- [Setup](#setup)
+- [Usage](#usage)
+- [API Endpoints](#api-endpoints)
+- [Contribution](#contribution)
+- [License](#license)
 
-bash
-Copy code
-npm install
-Create a .env file in the root directory and add the following environment variables:
+## Features
 
-plaintext
-Copy code
-MONGODB_URL=mongodb://localhost:27017/task-manager
-JWT_SECRET=your_jwt_secret
-SENDGRID_API_KEY=your_sendgrid_api_key
-SGMAIL_EMAIL=your_sendgrid_verified_email
-Start the application:
+- **User Registration and Authentication**: Users can sign up, log in, and manage their authentication tokens.
+- **Task Management**: Users can create, update, delete, and view their tasks.
+- **Password Hashing**: Passwords are securely hashed using bcrypt.
+- **JWT-Based Authentication**: JSON Web Tokens are used for secure authentication.
+- **Email Notifications**: Users receive emails for registration and account cancellation.
+- **File Upload**: Users can upload avatars (images) associated with their accounts.
 
-bash
-Copy code
-npm start
-The server will start on http://localhost:3000.
+## Technologies
 
-Usage
-Register a new user:
+- **Node.js**: JavaScript runtime for server-side scripting.
+- **Express**: Web framework for Node.js.
+- **MongoDB**: NoSQL database for storing user and task data.
+- **Mongoose**: ODM (Object Data Modeling) library for MongoDB.
+- **SendGrid**: Service for sending emails.
+- **JWT (JSON Web Token)**: For secure authentication.
+- **Bcrypt**: Library for hashing passwords.
+- **Validator**: Library for input validation.
+- **Cors**: Middleware for enabling Cross-Origin Resource Sharing.
 
-POST /users with JSON body containing name, email, and password.
+## Setup
 
-Log in:
+### Prerequisites
 
-POST /users/login with JSON body containing email and password.
+- [Node.js](https://nodejs.org/) (v14 or later)
+- [MongoDB](https://www.mongodb.com/) instance (local or remote)
 
-Create a task:
+### Installation
 
-POST /tasks with JSON body containing description and completed status (authentication required).
+1. **Clone the repository:**
 
-Get tasks:
+   ```bash
+   git clone https://github.com/yourusername/task-manager.git
 
-GET /tasks (authentication required).
+2. **Navigate to the project directory:**
 
-Update a task:
+    ```bash
+    cd task-manager
+    ```
 
-PATCH /tasks/:id with JSON body containing updates (authentication required).
+3. **Install dependencies:**
 
-Delete a task:
+    ```bash
+    npm install
+    ```
 
-DELETE /tasks/:id (authentication required).
+4. **Create a `.env` file in the root directory and add the following environment variables:**
 
-Log out:
+    ```plaintext
+    MONGODB_URL=mongodb://localhost:27017/task-manager
+    JWT_SECRET=your_jwt_secret
+    SENDGRID_API_KEY=your_sendgrid_api_key
+    SGMAIL_EMAIL=your_sendgrid_verified_email
+    ```
 
-POST /users/logout (authentication required).
+    - `MONGODB_URL`: URL of your MongoDB database.
+    - `JWT_SECRET`: Secret key for JWT signing and verification.
+    - `SENDGRID_API_KEY`: Your SendGrid API key for sending emails.
+    - `SGMAIL_EMAIL`: Your SendGrid verified email address.
 
-Log out from all sessions:
+5. **Start the application:**
 
-POST /users/logoutAll (authentication required).
+    ```bash
+    npm start
+    ```
 
-API Endpoints
-Refer to the API Documentation for a detailed list of endpoints and request/response examples.
+## Features
 
-Contribution
-Fork the repository
+- **User Authentication:**
+  - Users can register and log in using their email and password.
+  - JWT tokens are used for securing routes.
 
-Create a feature branch:
+- **Task Management:**
+  - Users can create, read, update, and delete tasks.
+  - Each task is associated with the user who created it.
 
-bash
-Copy code
-git checkout -b feature/your-feature
-Commit your changes:
+- **Email Notifications:**
+  - SendGrid is used for sending welcome and cancellation emails.
 
-bash
-Copy code
-git commit -am 'Add new feature'
-Push to the branch:
+## API Endpoints
 
-bash
-Copy code
-git push origin feature/your-feature
-Create a new Pull Request
+### User Endpoints
 
-Provide a clear description of your changes.
+- **POST** `/users`  
+  Register a new user.
 
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
+- **POST** `/users/login`  
+  Log in a user.
+
+- **POST** `/users/logout`  
+  Log out the user.
+
+- **POST** `/users/logoutAll`  
+  Log out the user from all sessions.
+
+- **GET** `/users/me`  
+  Get the authenticated user's profile.
+
+- **PATCH** `/users/me`  
+  Update the authenticated user's profile.
+
+- **DELETE** `/users/me`  
+  Delete the authenticated user.
+
+### Task Endpoints
+
+- **POST** `/tasks`  
+  Create a new task.
+
+- **GET** `/tasks`  
+  Get all tasks.
+
+- **GET** `/tasks/:id`  
+  Get a task by ID.
+
+- **PATCH** `/tasks/:id`  
+  Update a task by ID.
+
+- **DELETE** `/tasks/:id`  
+  Delete a task by ID.
+
+## Development
+
+- **Running Tests**
+
+  - Run unit tests:
+
+    ```bash
+    npm test
+    ```
+
+  - Run tests with coverage:
+
+    ```bash
+    npm run test:coverage
+    ```
+
+- **Code Style**
+
+  This project uses ESLint for code linting. To check code style, run:
+
+  ```bash
+  npm run lint
+  ## Contributing
+
+1. Fork the repository.
+
+2. Create a new branch:
+
+   ```bash
+   git checkout -b feature/your-feature
+
+3. **Make your changes and commit them:**
+
+    ```bash
+    git commit -am 'Add new feature'
+    ```
+
+4. **Push to the branch:**
+
+    ```bash
+    git push origin feature/your-feature
+    ```
+
+5. **Create a new Pull Request.**
+
